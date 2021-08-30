@@ -4,7 +4,7 @@ module.exports = {
     title: "Sib-Bling",
   },
   plugins: [
-    "gatsby-plugin-theme-ui",
+    "gatsby-plugin-material-ui",
     "gatsby-plugin-gatsby-cloud",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
@@ -18,5 +18,13 @@ module.exports = {
       },
       __key: "images",
     },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "GCMS",
+        fieldName: "gcms",
+        url: 'https://api-us-east-1.graphcms.com/v2/cksyvyyx11x5l01z50cx1ee7k/master'
+      }
+    }
   ],
 };
