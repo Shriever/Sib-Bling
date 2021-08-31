@@ -46,13 +46,13 @@ const App = () => {
     },
   })(Button);
   return (
-    <Container maxWidth='xl'>
+    <div>
       <LandingPage />
       {/* {products.map((el, i) => {
         if (i > 20) return;
         return <img key={i} height='200' width='200' src={el.image_link} alt='' />;
       })} */}
-    </Container>
+    </div>
   );
 };
 

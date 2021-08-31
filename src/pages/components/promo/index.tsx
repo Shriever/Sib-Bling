@@ -1,12 +1,12 @@
-import React from "react";
-import { Slide } from "@material-ui/core";
-import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import React, { useState } from "react";
+import { useScrollTrigger } from "@material-ui/core";
+import { ArrowBackIos, ArrowForwardIos, MicNone } from "@material-ui/icons";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-import { useState } from "react";
+
 
 import { ICarouselData } from "./types";
-import { PromoBar, CarouselBar, FlexBox, CarouselTitle } from "./styles";
+import { PromoBar, FlexBox, CarouselTitle } from "./styles";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -26,7 +26,34 @@ const carouselData: ICarouselData[] = [
 
 const Promo = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = carouselData.length;
+  const maxSteps: number = carouselData.length;
+
+  const responsive = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 3,
+      partialVisibilityGutter: 40,
+    },
+    mobile: {
+      breakpoint: {
+        max: 464,
+        min: 0,
+      },
+      items: 1,
+      partialVisibilityGutter: 30,
+    },
+    tablet: {
+      breakpoint: {
+        max: 1024,
+        min: 464,
+      },
+      items: 2,
+      partialVisibilityGutter: 30,
+    },
+  };
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -43,7 +70,7 @@ const Promo = () => {
   const getLinks = () => {
     return carouselData[0].links.map((el, idx) => {
       return (
-        <a key={idx} href={el.url} style={{ color: "#fff" }}>
+        <a key={idx} href={el.url} style={{ color: "#fff", padding: "0 5px" }}>
           {el.title}
         </a>
       );
@@ -51,33 +78,22 @@ const Promo = () => {
   };
 
   return (
-    <Slide appear={false} direction='down' in={true}>
-      <PromoBar>
-        <CarouselBar>
-          <AutoPlaySwipeableViews
-            axis='x'
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseMovements
-          >
-            {carouselData.map(el => {
+    <div style={{height: "40px"}}>
+      {/* <ArrowBackIos /> */}
+
+        {/* {carouselData.map((el, idx) => {
               return (
-                <div>
+                  <FlexBox key={idx} style={{ justifyContent: "space-between" }}>
                   <FlexBox>
-                    <ArrowBackIos />
-                    <CarouselTitle>{el.title}</CarouselTitle>
+                  <CarouselTitle>{el.title}</CarouselTitle>
                   </FlexBox>
-                  <FlexBox>
-                    {getLinks()}
-                    <ArrowForwardIos />
+                  <FlexBox>{getLinks()}</FlexBox>
                   </FlexBox>
-                </div>
-              );
-            })}
-          </AutoPlaySwipeableViews>
-        </CarouselBar>
-      </PromoBar>
-    </Slide>
+                  );
+                })}
+            */}
+      {/* <ArrowForwardIos /> */}
+    </div>
   );
 };
 
